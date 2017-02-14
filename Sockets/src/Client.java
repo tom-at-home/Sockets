@@ -9,34 +9,34 @@ public class Client {
 	
 	public static void main(String[] args){
 
-		BufferedReader br = null;
+		BufferedReader in = null;
 		Socket client = null;
-		PrintWriter p = null;
+		PrintWriter out = null;
 		
 		try{
 			client = new Socket(InetAddress.getLocalHost(),9999);
-			br = new BufferedReader(new InputStreamReader(client.getInputStream()));
+			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			if(client.isConnected()){
 				System.out.println("Client ist verbunden.");
 			}
 			
-			p = new PrintWriter(client.getOutputStream());
+			out = new PrintWriter(client.getOutputStream());	
 
 			//while(true) {
 				
-				while(br.ready()){
-					String s = br.readLine();
-					System.out.println(s);
-					/*if(s.equals("\r\n")){
+				while(in.ready()){
+					String str = in.readLine();
+					System.out.println(str);
+					/*if(str.equals("\r\n")){
 						break;
 					}*/
 					
 				}
-				
-				p.println("Das ist die Nachricht vom Client");
-				p.flush();
-							
-				if(p.checkError()){
+
+				out.println("Das ist die Nachricht vom Client");
+				out.flush();			
+											
+				if(out.checkError()){
 					//break;
 					client.close();
 					System.out.println("Closing connection");

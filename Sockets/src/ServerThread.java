@@ -9,8 +9,8 @@ public class ServerThread extends Thread{
 	
 	Socket c = null;
 	//Socket client = null;	
-	BufferedReader br = null;
-	PrintWriter pw = null;
+	BufferedReader in = null;
+	PrintWriter out = null;
 	
 	public ServerThread(Socket s){
 		this.c = s;
@@ -21,22 +21,22 @@ public class ServerThread extends Thread{
 		try{
 			
 			System.out.println("Server hat eine Verbindung akzeptiert.");
-			br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+			in = new BufferedReader(new InputStreamReader(c.getInputStream()));
 			//while(true) {
-				while(br.ready()){
-					String str = br.readLine();
+				while(in.ready()){
+					String str = in.readLine();
 					System.out.println(str);
 					/*if(s.equals("\r\n")){
 						break;
 					}*/
 				}
 				
-			pw = new PrintWriter(c.getOutputStream());
+			out = new PrintWriter(c.getOutputStream());
 			String header = "HTTP/1.1 200 OK\r\nContent-type: text/html\r\n\r\n";
-			String content = "<html><body><h1>Hallo Server...</h1></body></html>";
-			pw.println(header + content);
-			pw.flush();
-			c.close();
+			String content = "<html><body><h1>Hallo Client...</h1></body></html>";
+			out.println(content);
+			out.flush();
+			//c.close();
 			//}
 		}
 		catch (IOException e) {

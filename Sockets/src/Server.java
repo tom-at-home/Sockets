@@ -13,12 +13,12 @@ public class Server {
 			
 			server = new ServerSocket(9999);
 			
-			//while(true){
+			while(true){
 				client = server.accept();
 				new ServerThread(client).start();
-			//}
+			}
 			
-		} 
+		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
